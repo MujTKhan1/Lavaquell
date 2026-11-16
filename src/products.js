@@ -1,110 +1,66 @@
-// All product names, formats, capacities and descriptions are taken verbatim
-// from airowaterglobal.com/products. "Coming Soon" badges were removed for
-// this concept, without adding any availability claims.
+// Lavaquell products only. Names, formats, capacities and descriptions are
+// taken verbatim from airowaterglobal.com/products, grouped the same way
+// (by water type, each format shown separately). "Coming Soon" badges removed.
 
-export const BRANDS = {
-  lavaquell: {
-    desc: "Premium returnable glass and aluminium water bottles, still and sparkling, for the UAE's most prestigious hotels and institutions.",
-    features: ['Still & Sparkling', 'RGB & NRGB', 'Aluminium Cans & Bottles', 'Custom Private Label'],
+export const RANGE = [
+  {
+    category: 'Still Water',
+    items: [
+      {
+        badge: 'RGB',
+        format: 'Returnable Glass Bottle',
+        name: 'Still Water',
+        capacity: '500ml / 1000ml',
+        desc: 'Premium still water in returnable borosilicate glass bottles with custom printing, the core of our sustainable hospitality ecosystem.',
+        img: 'still-rgb',
+        alt: 'Lavaquell Still Water returnable glass bottle with blue print on a marble table',
+        enquiry: 'hotel',
+      },
+      {
+        badge: 'ALU',
+        format: 'Aluminium Can',
+        name: 'Still Water',
+        capacity: '250ml',
+        desc: 'Premium still water in sleek LAVAQUELL-branded aluminium cans, perfect for minibars, poolside, and retail.',
+        img: 'still-can',
+        alt: 'Front and back of the white Lavaquell Still Water aluminium can',
+        enquiry: 'bulk',
+      },
+      {
+        badge: 'ALU',
+        format: 'Aluminium Bottle',
+        name: 'Still Water',
+        capacity: '250ml / 500ml / 600ml',
+        desc: 'Premium still water in lightweight, fully recyclable aluminium bottles, ideal for events and eco-conscious hospitality.',
+        img: 'still-alu',
+        alt: 'Front and back of the white Lavaquell Still Water aluminium bottle',
+        enquiry: 'bulk',
+      },
+    ],
   },
-  airowater: {
-    desc: 'Premium air-to-water in returnable glass and aluminium formats, plus revolutionary Atmospheric Water Generators for the GCC and Africa.',
-    features: ['Premium Air Water', 'RGB & NRGB', 'Aluminium Cans & Bottles', 'Turnkey Solution for AWG Machines'],
+  {
+    category: 'Sparkling Water',
+    items: [
+      {
+        badge: 'RGB',
+        format: 'Returnable Glass Bottle',
+        name: 'Sparkling Water',
+        capacity: '500ml / 1000ml',
+        desc: 'Naturally sparkling water in premium returnable glass bottles, crafted for fine dining and luxury hotel experiences.',
+        img: 'sparkling-rgb',
+        alt: 'Lavaquell Sparkling Water returnable glass bottle with green print and a Save This Bottle neck band',
+        enquiry: 'hotel',
+      },
+      {
+        badge: 'ALU',
+        format: 'Aluminium Can',
+        name: 'Sparkling Water',
+        capacity: '250ml',
+        desc: 'Naturally sparkling water in LAVAQUELL-branded aluminium cans, elegant, convenient, and event-ready.',
+        img: 'sparkling-can',
+        alt: 'Front and back of the white Lavaquell Sparkling Water aluminium can with green print',
+        enquiry: 'bulk',
+      },
+    ],
   },
-};
-
-export const PRODUCTS = {
-  lavaquell: [
-    {
-      brand: 'LAVAQUELL',
-      name: 'Still Water',
-      format: 'Returnable Glass',
-      formatLong: 'Returnable Glass Bottle (RGB)',
-      capacity: '500ml / 1000ml',
-      desc: 'Premium still water in returnable borosilicate glass bottles with custom printing, the core of our sustainable hospitality ecosystem.',
-      img: 'still-rgb',
-      alt: 'Lavaquell Still Water returnable glass bottle with blue print on a marble table',
-      enquiry: 'hotel',
-    },
-    {
-      brand: 'LAVAQUELL',
-      name: 'Sparkling Water',
-      format: 'Returnable Glass',
-      formatLong: 'Returnable Glass Bottle (RGB)',
-      capacity: '500ml / 1000ml',
-      desc: 'Naturally sparkling water in premium returnable glass bottles, crafted for fine dining and luxury hotel experiences.',
-      img: 'sparkling-rgb',
-      alt: 'Lavaquell Sparkling Water returnable glass bottle with green print and a Save This Bottle neck band',
-      enquiry: 'hotel',
-    },
-    {
-      brand: 'LAVAQUELL',
-      name: 'Still Water',
-      format: 'Aluminium Can',
-      formatLong: 'Aluminium Can',
-      capacity: '250ml',
-      desc: 'Premium still water in sleek LAVAQUELL-branded aluminium cans, perfect for minibars, poolside, and retail.',
-      img: 'still-can',
-      alt: 'Front and back of the white Lavaquell Still Water aluminium can',
-      enquiry: 'bulk',
-    },
-    {
-      brand: 'LAVAQUELL',
-      name: 'Sparkling Water',
-      format: 'Aluminium Can',
-      formatLong: 'Aluminium Can',
-      capacity: '250ml',
-      desc: 'Naturally sparkling water in LAVAQUELL-branded aluminium cans, elegant, convenient, and event-ready.',
-      img: 'sparkling-can',
-      alt: 'Front and back of the white Lavaquell Sparkling Water aluminium can with green print',
-      enquiry: 'bulk',
-    },
-    {
-      brand: 'LAVAQUELL',
-      name: 'Still Water',
-      format: 'Aluminium Bottle',
-      formatLong: 'Aluminium Bottle',
-      capacity: '250ml / 500ml / 600ml',
-      desc: 'Premium still water in lightweight, fully recyclable aluminium bottles, ideal for events and eco-conscious hospitality.',
-      img: 'still-alu',
-      alt: 'Front and back of the white Lavaquell Still Water aluminium bottle',
-      enquiry: 'bulk',
-    },
-  ],
-  airowater: [
-    {
-      brand: 'AirOWater',
-      name: 'Premium Air Water',
-      format: 'Returnable Glass',
-      formatLong: 'Returnable Glass Bottle (RGB)',
-      capacity: '500ml / 1000ml',
-      desc: "Water harvested from the atmosphere, bottled in premium returnable glass, AirOWater's flagship sustainable hydration solution.",
-      img: 'airowater-rgb',
-      alt: 'AirOWater Premium Air Water returnable glass bottle on a marble table',
-      enquiry: 'hotel',
-    },
-    {
-      brand: 'AirOWater',
-      name: 'Premium Air Water',
-      format: 'Aluminium Bottle',
-      formatLong: 'Aluminium Bottle',
-      capacity: '250ml / 500ml / 600ml',
-      desc: 'Atmosphere-harvested water in recyclable aluminium bottles, ideal for events, retail, and eco-forward hospitality.',
-      img: 'airowater-alu',
-      alt: 'Front and back of the navy AirOWater aluminium bottle',
-      enquiry: 'bulk',
-    },
-    {
-      brand: 'AirOWater',
-      name: 'Air Water Generators (AWG)',
-      format: 'Machines',
-      formatLong: 'Atmospheric Water Generators',
-      capacity: 'Various capacities',
-      desc: 'Atmospheric Water Generators that harvest pure drinking water directly from humidity in the air. AirOWater holds exclusive GCC and Africa distribution rights.',
-      img: 'awg',
-      alt: 'A range of AirOWater atmospheric water generator machines',
-      enquiry: 'awg',
-      link: { href: 'https://airowater.com', label: 'Want to know more? Visit airowater.com' },
-    },
-  ],
-};
+];

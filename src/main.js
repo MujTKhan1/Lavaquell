@@ -1,6 +1,7 @@
 import '@fontsource-variable/manrope';
 import './styles.css';
-import { PRODUCTS, BRANDS } from './products.js';
+import { RANGE } from './products.js';
+import { initMotion } from './motion.js';
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 const isReduced = () => reduced.matches || location.search.includes('reduced');
@@ -106,76 +107,50 @@ async function initReveal() {
 }
 (window.requestIdleCallback || ((f) => setTimeout(f, 600)))(() => initReveal(), { timeout: 1500 });
 
-/* ---------------- Collection ---------------- */
-const listEl = $('[data-product-list]');
-const framesEl = $('[data-frames]');
-const detailEl = $('[data-caption]');
-const brandIntro = $('[data-brand-intro]');
-const panel = $('[data-showcase]');
-const switcher = $('[data-brand-switch]');
-const tabs = $$('[data-brand]');
-let currentBrand = 'lavaquell';
-
-function renderBrand(brand, index = 0) {
-  currentBrand = brand;
-  const items = PRODUCTS[brand];
-  panel.dataset.brand = brand;
-  panel.setAttribute('aria-labelledby', `tab-${brand}`);
-  switcher.dataset.active = brand;
-  tabs.forEach((t) => {
-    const on = t.dataset.brand === brand;
-    t.setAttribute('aria-selected', String(on));
-    t.tabIndex = on ? 0 : -1;
-  });
-  brandIntro.textContent = BRANDS[brand].desc;
-  listEl.innerHTML = items
-    .map(
-      (p, i) => `
-      <li><button type="button" data-index="${i}" aria-pressed="false">
-        <span class="pl__name">${p.name}</span>
-        <span class="pl__fmt">${p.format}</span>
-      </button></li>`
-    )
-    .join('');
-  framesEl.innerHTML = items
-    .map(
-      (p, i) => `
-      <img class="frame" data-frame="${p.img}" src="/assets/${p.img}-1600.webp"
-        srcset="/assets/${p.img}-800.webp 800w, /assets/${p.img}-1600.webp 1600w"
-        sizes="(max-width: 900px) 100vw, 56vw" alt="${p.alt}" loading="${i === index ? 'eager' : 'lazy'}" decoding="async" />`
-    )
-    .join('');
-  $$('button', listEl).forEach((b) => b.addEventListener('click', () => selectProduct(Number(b.dataset.index))));
-  selectProduct(index);
-}
-
-function selectProduct(i) {
-  const p = PRODUCTS[currentBrand][i];
-  $$('button', listEl).forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
-  $$('.frame', framesEl).forEach((f, k) => f.classList.toggle('is-active', k === i));
-  detailEl.classList.remove('is-in');
-  void detailEl.offsetWidth;
-  detailEl.innerHTML = `
-    <p class="d__meta">${p.brand} · ${p.formatLong} · ${p.capacity}</p>
-    <p class="d__desc">${p.desc}</p>
-    <div class="d__actions">
-      <a class="btn btn--navy btn--sm" href="#contact" data-enquiry-type="${p.enquiry}">Enquire Now</a>
-      ${p.link ? `<a class="d__link" href="${p.link.href}" target="_blank" rel="noopener">${p.link.label}</a>` : ''}
-    </div>`;
-  detailEl.classList.add('is-in');
-}
-
-tabs.forEach((t, i) => {
-  t.addEventListener('click', () => renderBrand(t.dataset.brand));
-  t.addEventListener('keydown', (e) => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    e.preventDefault();
-    const next = tabs[(i + 1) % tabs.length];
-    renderBrand(next.dataset.brand);
-    next.focus();
-  });
-});
-renderBrand('lavaquell');
+/* ---------------- Collection: every product shown on its own ---------------- */
+const rangeEl = $('[data-range]');
+rangeEl.innerHTML = RANGE.map(
+  (group, g) => `
+  <section class="range__group" aria-labelledby="range-${g}">
+    <h3 class="range__title" id="range-${g}" data-fade><span>${String(g + 1).padStart(2, '0')}</span>${group.category}</h3>
+    <ul class="range__grid">
+      ${group.items
+        .map(
+          (p, i) => `
+        <li class="card" data-card style="--i:${i}">
+          <figure class="card__media" data-media>
+            <img src="/assets/${p.img}-800.webp" srcset="/assets/${p.img}-800.webp 800w, /assets/${p.img}-1600.webp 1600w"
+              sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 30vw" alt="${p.alt}" loading="lazy" decoding="async" data-parallax />
+            <span class="card__badge">${p.badge}</span>
+          </figure>
+          <div class="card__body">
+            <p class="card__format">LAVAQUELL · ${p.format}</p>
+            <h4 class="card__name">${p.name}</h4>
+            <p class="card__cap">${p.capacity}</p>
+            <button class="card__toggle" type="button" aria-expanded="false" aria-controls="card-${g}-${i}">
+              <span>View details</span><i aria-hidden="true"></i>
+            </button>
+            <div class="card__more" id="card-${g}-${i}" hidden>
+              <p>${p.desc}</p>
+              <a class="btn btn--navy btn--sm" href="#contact" data-enquiry-type="${p.enquiry}">Enquire Now</a>
+            </div>
+          </div>
+        </li>`
+        )
+        .join('')}
+    </ul>
+  </section>`
+).join('');
+$$('.card__toggle', rangeEl).forEach((btn) =>
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    const more = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.setAttribute('aria-expanded', String(open));
+    btn.querySelector('span').textContent = open ? 'Hide details' : 'View details';
+    more.hidden = !open;
+    btn.closest('.card').classList.toggle('is-open', open);
+  })
+);
 
 // Any enquiry link pre-selects the enquiry type
 document.addEventListener('click', (e) => {
@@ -305,3 +280,6 @@ form.addEventListener('submit', (e) => {
 });
 
 reduced.addEventListener?.('change', () => location.reload());
+
+/* ---------------- Motion (smooth scroll, reveals, cursor) ---------------- */
+initMotion({ reduced: isReduced(), coarse });

@@ -208,52 +208,61 @@ html.reduced .reveal__end { opacity: 1; }
 html.reduced .marquee__track { animation: none; }
 @media (max-width: 700px) { .partners { grid-template-columns: 1fr; gap: 12px; padding-left: 0; text-align: center; } .partners__label { max-width: none; } }
 
-.collection__head { display: flex; align-items: end; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; padding: clamp(44px, 6vw, 72px) 0 clamp(28px, 3.5vw, 40px); }
-.collection__head .eyebrow { margin-bottom: 12px; }
-.brand-switch { position: relative; display: flex; padding: 5px; gap: 4px; border-radius: 8px; background: #fff; box-shadow: 0 1px 0 var(--line), 0 18px 40px -26px rgba(8, 116, 188, 0.6); }
-.brand-switch button { position: relative; z-index: 1; display: grid; place-items: center; width: 170px; height: 50px; border: 0; border-radius: 5px; background: none; cursor: pointer; opacity: 0.45; filter: grayscale(0.7); transition: opacity 0.4s, filter 0.4s; }
-.brand-switch button[aria-selected='true'] { opacity: 1; filter: none; }
-.brand-switch button img { height: 22px; width: auto; }
-.brand-switch button[data-brand='airowater'] img { height: 30px; }
-.brand-switch__glow { position: absolute; top: 5px; bottom: 5px; left: 5px; width: 170px; border-radius: 5px; background: var(--aqua); box-shadow: inset 0 0 0 1px rgba(8, 116, 188, 0.15); transition: transform 0.55s var(--ease); }
-.brand-switch[data-active='airowater'] .brand-switch__glow { transform: translateX(174px); }
+.collection__head { display: grid; gap: 14px; max-width: 760px; padding: clamp(56px, 7vw, 96px) 0 clamp(36px, 4.5vw, 56px); }
+.collection__head .lede { max-width: 54ch; }
 
-.showcase { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: stretch; }
-.showcase__stage { margin: 0; }
-.showcase__frames { position: relative; height: 100%; min-height: 360px; aspect-ratio: 5 / 4; border-radius: 24px; overflow: hidden; background: #e7e0d8; box-shadow: 0 40px 80px -48px rgba(4, 33, 61, 0.55); }
-.frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.05); transition: opacity 0.8s var(--ease), transform 1.4s var(--ease); }
-.frame.is-active { opacity: 1; transform: none; }
-.frame[data-frame='awg'] { object-fit: contain; padding: 6%; background: radial-gradient(#fff, #e8eff3); }
-.showcase__side { display: flex; flex-direction: column; gap: 18px; }
-.showcase__brand { color: var(--ink-soft); font-size: 15px; }
-.showcase__list { border-top: 1px solid var(--line); }
-.showcase__list button {
-  width: 100%; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; text-align: left;
-  padding: 13px 0; border: 0; border-bottom: 1px solid var(--line); background: none; cursor: pointer; color: var(--ink); font-family: inherit;
-  transition: padding 0.45s var(--ease);
+/* every product on its own, grouped by water type (as on the original Products page) */
+.range { display: grid; gap: clamp(48px, 6vw, 80px); }
+.range__title { display: flex; align-items: baseline; gap: 14px; font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 600; letter-spacing: -0.02em; color: var(--navy); padding-bottom: 16px; margin-bottom: clamp(20px, 2.5vw, 32px); border-bottom: 1px solid var(--line); }
+.range__title span { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; color: var(--brand); }
+.range__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); }
+.card { display: flex; flex-direction: column; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 1px 0 var(--line), 0 30px 60px -44px rgba(4, 33, 61, 0.45); transition: box-shadow 0.5s var(--ease), translate 0.6s var(--ease); }
+.card:hover { box-shadow: 0 1px 0 var(--line), 0 40px 70px -40px rgba(4, 33, 61, 0.5); translate: 0 -4px; }
+.card__media { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: #e7e0d8; }
+.card__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; transform: scale(1.14); will-change: transform; }
+.card__badge { position: absolute; top: 14px; left: 14px; padding: 5px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; color: #fff; background: var(--brand); }
+.card__body { display: grid; gap: 4px; padding: 20px 22px 22px; }
+.card__format { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); }
+.card__name { margin: 4px 0 0; font-size: 1.45rem; font-weight: 600; letter-spacing: -0.02em; color: var(--navy); }
+.card__cap { font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+.card__toggle { display: inline-flex; align-items: center; gap: 10px; justify-self: start; margin-top: 10px; padding: 6px 0; border: 0; background: none; cursor: pointer; font: 600 14px/1 var(--sans); color: var(--navy); border-bottom: 1px solid currentColor; }
+.card__toggle i { position: relative; width: 10px; height: 10px; }
+.card__toggle i::before, .card__toggle i::after { content: ''; position: absolute; inset: 4.5px 0 auto; height: 1.5px; background: currentColor; transition: transform 0.4s var(--ease); }
+.card__toggle i::after { transform: rotate(90deg); }
+.card.is-open .card__toggle i::after { transform: rotate(0); }
+.card__more[hidden] { display: none; }
+.card__more { display: grid; gap: 14px; justify-items: start; padding-top: 10px; color: var(--ink-soft); font-size: 15px; }
+.card__more:not([hidden]) { animation: fadeUp 0.5s var(--ease) both; }
+@media (max-width: 1000px) { .range__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .range__grid { grid-template-columns: 1fr; } .card__media { aspect-ratio: 5 / 4; } }
+
+/* ---------- Motion (lusion / sofi inspired) ---------- */
+html.lenis, html.lenis body { height: auto; }
+html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.wi { display: inline-block; }
+html.motion [data-split] .wi { transform: translateY(110%) rotate(3deg); transform-origin: 0 100%; transition: transform 1.15s var(--ease); transition-delay: calc(var(--d) * 55ms); }
+html.motion [data-split].is-in .wi { transform: none; }
+html.motion [data-fade] { opacity: 0; transform: translateY(22px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+html.motion [data-fade].is-in { opacity: 1; transform: none; }
+html.motion [data-card] { opacity: 0; transform: translateY(60px); transition: opacity 1s var(--ease), transform 1.2s var(--ease); transition-delay: calc(var(--i) * 110ms); }
+html.motion [data-card].is-in { opacity: 1; transform: none; }
+html.motion [data-card] .card__media { clip-path: inset(100% 0 0 0); transition: clip-path 1.4s var(--ease); transition-delay: calc(var(--i) * 110ms + 120ms); }
+html.motion [data-card].is-in .card__media { clip-path: inset(0 0 0 0); }
+html.motion [data-card].is-in:hover { transition-delay: 0s; }
+[data-sheet] { transform-origin: 50% 0; will-change: transform; }
+.btn, .link-arrow, .nav__cta { transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.5s var(--ease); }
+
+.cursor {
+  position: fixed; left: 0; top: 0; z-index: 100; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: var(--brand); pointer-events: none; mix-blend-mode: multiply; opacity: 0.7;
+  display: grid; place-items: center; transition: width 0.4s var(--ease), height 0.4s var(--ease), margin 0.4s var(--ease), opacity 0.3s, background 0.3s;
 }
-.pl__name { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; transition: color 0.3s; }
-.pl__fmt { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
-.showcase__list button:hover .pl__name { color: var(--brand); }
-.showcase__list button[aria-pressed='true'] { padding-left: 14px; box-shadow: inset 3px 0 0 var(--brand); }
-.showcase__list button[aria-pressed='true'] .pl__name { font-weight: 650; color: var(--brand); }
-.showcase[data-brand='airowater'] .showcase__list button[aria-pressed='true'] { box-shadow: inset 3px 0 0 #0e8f99; }
-.showcase[data-brand='airowater'] .showcase__list button[aria-pressed='true'] .pl__name { color: #0b7a83; }
-.showcase__detail { display: grid; gap: 10px; }
-.showcase__detail.is-in > * { animation: fadeUp 0.6s var(--ease) both; }
-.showcase__detail.is-in > *:nth-child(2) { animation-delay: 0.05s; }
-.showcase__detail.is-in > *:nth-child(3) { animation-delay: 0.1s; }
-.d__meta { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); }
-.showcase[data-brand='airowater'] .d__meta { color: #0b7a83; }
-.d__desc { color: var(--ink-soft); font-size: 15px; }
-.d__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 4px; }
-.d__link { font-size: 13px; font-weight: 600; color: var(--brand-dark); }
-@media (max-width: 900px) {
-  .showcase { grid-template-columns: 1fr; }
-  .showcase__frames { min-height: 0; aspect-ratio: 4 / 3; }
-  .brand-switch button, .brand-switch__glow { width: 140px; }
-  .brand-switch[data-active='airowater'] .brand-switch__glow { transform: translateX(144px); }
-}
+.cursor.is-link { width: 46px; height: 46px; margin: -23px 0 0 -23px; background: rgba(8, 116, 188, 0.16); opacity: 1; }
+.cursor.is-card { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--navy); mix-blend-mode: normal; opacity: 0.92; }
+.cursor__label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; opacity: 0; transition: opacity 0.3s; }
+.cursor.is-card .cursor__label { opacity: 1; }
+.cursor.is-hidden, .cursor.is-out { opacity: 0; }
 
 /* ---------- Cycle ---------- */
 .cycle {
