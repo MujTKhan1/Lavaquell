@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# large / regenerable render outputs (scripts in render/ recreate them)
+render/frames/
+render/stills/
+render/unused/
+render/*.blend
+render/*.blend1
+
+# raw downloads from airowaterglobal.com (optimised copies live in public/assets)
+src-assets/
