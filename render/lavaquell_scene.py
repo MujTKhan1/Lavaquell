@@ -489,6 +489,38 @@ build()
 if MODE == 'save':
     set_frame(F_TOTAL)
     bpy.ops.wm.save_as_mainfile(filepath=os.path.join(HERE, 'lavaquell.blend'))
+elif MODE == 'cutouts':
+    # transparent-background bottle states for the cycle section (same model, lighting and scale)
+    sc = bpy.context.scene
+    for name in ('Pool', 'PoolFar'):
+        bpy.data.objects[name].hide_render = True
+    sc.render.film_transparent = True
+    sc.cycles.film_transparent_glass = True
+    sc.render.image_settings.color_mode = 'RGBA'
+    sc.render.resolution_x, sc.render.resolution_y = 900, 1500
+    root = bpy.data.objects['Bottle']
+    root.location = (0, 0, 0)
+    root.rotation_euler = (0, 0, 0)
+    cam, tgt = bpy.data.objects['Cam'], bpy.data.objects['CamTarget']
+    cam.data.sensor_fit = 'VERTICAL'
+    cam.data.sensor_height = 24
+    cam.location = (0.0, -1.3, 0.17)
+    tgt.location = (0.0, 0.0, 0.165)
+    cam.data.lens = 24 * 1.3 / 0.355
+    out_dir = os.path.join(ROOT, 'public', 'assets', 'cycle')
+    os.makedirs(out_dir, exist_ok=True)
+    states = {
+        'bottle-full-capped': (True, True),
+        'bottle-empty-capped': (False, True),
+        'bottle-empty-open': (False, False),
+        'bottle-full-open': (True, False),
+    }
+    for name, (water, cap) in states.items():
+        bpy.data.objects['Water'].hide_render = not water
+        bpy.data.objects['Cap'].hide_render = not cap
+        sc.render.filepath = os.path.join(HERE, 'cutouts', name + '.png')
+        bpy.ops.render.render(write_still=True)
+        print('CUTOUT', name, flush=True)
 elif MODE == 'glb':
     # export just the bottle (glass, water, cap, print) for the live web scene
     bpy.ops.object.select_all(action='DESELECT')

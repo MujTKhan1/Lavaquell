@@ -12,3 +12,4 @@ render/*.blend1
 
 # raw downloads from airowaterglobal.com (optimised copies live in public/assets)
 src-assets/
+render/cutouts/

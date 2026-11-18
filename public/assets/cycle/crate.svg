@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" fill="none">
+  <!-- Illustrative reusable delivery crate (brand blue, as in the delivery photo); not a product drawing. -->
+  <defs>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f7fc4"/>
+      <stop offset="1" stop-color="#0b5a99"/>
+    </linearGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d4f86"/>
+      <stop offset="1" stop-color="#0a3f6c"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="320" cy="364" rx="300" ry="14" fill="#0b1f4d" opacity="0.12"/>
+  <!-- inside / back rim -->
+  <path d="M40 70 L90 30 H550 L600 70 Z" fill="url(#top)"/>
+  <!-- front face -->
+  <rect x="40" y="70" width="560" height="284" rx="14" fill="url(#front)"/>
+  <!-- slot grid -->
+  <g fill="#0a4a7e" opacity="0.55">
+    <rect x="76" y="104" width="64" height="26" rx="8"/><rect x="160" y="104" width="64" height="26" rx="8"/>
+    <rect x="416" y="104" width="64" height="26" rx="8"/><rect x="500" y="104" width="64" height="26" rx="8"/>
+    <rect x="76" y="292" width="64" height="26" rx="8"/><rect x="160" y="292" width="64" height="26" rx="8"/>
+    <rect x="416" y="292" width="64" height="26" rx="8"/><rect x="500" y="292" width="64" height="26" rx="8"/>
+  </g>
+  <!-- handle -->
+  <rect x="270" y="98" width="100" height="26" rx="13" fill="#0a3f6c"/>
+  <!-- rim highlight -->
+  <path d="M54 76 H586" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round"/>
+</svg>

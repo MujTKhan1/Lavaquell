@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 900" fill="none">
+  <!--
+    TEMPORARY, REPLACEABLE OUTLINE of a crushed single-use PET water bottle.
+    Replace with: a transparent-background photo (PNG/WebP, about 1200 px tall,
+    portrait) of an unbranded, crushed, clear single-use plastic water bottle,
+    lit softly from the left, at the same height framing as
+    bottle-full-capped.webp. Keep the filename or update index.html.
+  -->
+  <defs>
+    <linearGradient id="pet" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c9dbe4" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#eef5f8" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#b8cdd8" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  <!-- cap -->
+  <rect x="118" y="34" width="64" height="46" rx="6" fill="#d9e3e9" stroke="#8aa3b3" stroke-width="3"/>
+  <path d="M124 44v28M134 44v28M144 44v28M154 44v28M164 44v28M174 44v28" stroke="#9fb4c1" stroke-width="2"/>
+  <rect x="122" y="80" width="56" height="12" rx="3" fill="#cfdbe2" stroke="#8aa3b3" stroke-width="3"/>
+  <!-- crumpled body -->
+  <path fill="url(#pet)" stroke="#7e98a9" stroke-width="3.5" stroke-linejoin="round"
+    d="M124 92 C112 132 84 150 82 196 L96 236 L70 284 L104 318 L66 372 L112 404 L78 470 L120 500 L84 566 L132 598 L92 660 L128 702 L98 770 L118 838 C140 856 168 856 188 840 L206 776 L178 712 L216 664 L182 610 L226 560 L190 506 L230 452 L188 400 L222 344 L186 300 L216 246 L198 202 C202 150 186 128 176 92 Z"/>
+  <!-- crush creases -->
+  <path stroke="#9fb4c1" stroke-width="2.5" stroke-linecap="round" d="M96 236 L198 202 M104 318 L186 300 M112 404 L188 400 M120 500 L190 506 M132 598 L182 610 M128 702 L178 712 M118 838 L188 840"/>
+  <path stroke="#ffffff" stroke-opacity="0.7" stroke-width="5" stroke-linecap="round" d="M108 150 C100 176 98 196 104 214 M110 340 L96 370 M118 520 L104 548"/>
+</svg>

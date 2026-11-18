@@ -158,46 +158,89 @@ document.addEventListener('click', (e) => {
   if (a) $('[data-enquiry-select]').value = a.dataset.enquiryType;
 });
 
-/* ---------------- Cycle (no pinning: driven by the section's pass through the viewport) ---------------- */
-const cycle = $('[data-cycle]');
-const steps = $$('[data-cycle-steps] li');
-const ringProgress = $('[data-ring-progress]');
-const ringBottle = $('[data-ring-bottle]');
-const ringNodes = $('[data-ring-nodes]');
-const cycleNum = $('[data-cycle-num]');
-const R = 160, C = 2 * Math.PI * R;
-ringProgress.style.strokeDasharray = `${C}`;
-for (let i = 0; i < 5; i++) {
-  const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
-  const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  c.setAttribute('cx', String(200 + Math.cos(a) * R));
-  c.setAttribute('cy', String(200 + Math.sin(a) * R));
-  c.setAttribute('r', '7');
-  c.setAttribute('class', 'ring__node');
-  ringNodes.appendChild(c);
+/* ---------------- Refuse plastic → the five-stage return journey ----------------
+ * Desktop: both sections pin a sticky scene; scroll progress drives the plastic
+ * bottle out of view, then one shared Lavaquell bottle through five stages.
+ * Mobile / reduced motion: stacked chapters, no pinning. */
+const refuse = $('[data-refuse]');
+const journey = $('[data-journey]');
+const jTrack = $('[data-journey-track]');
+const jsteps = $$('.jstep');
+const navLinks = $$('[data-goto]');
+const bar = $('[data-journey-bar]');
+const STAGES = 5;
+const stackedMQ = window.matchMedia('(max-width: 900px), (max-aspect-ratio: 19/20)');
+const isStacked = () => stackedMQ.matches || isReduced();
+const smoothstep = (t) => t * t * (3 - 2 * t);
+let lenisRef = null;
+let activeStage = -1;
+
+function sectionProgress(el) {
+  const travel = el.offsetHeight - window.innerHeight;
+  return travel > 0 ? clamp01(-el.getBoundingClientRect().top / travel) : 0;
 }
-const nodes = $$('.ring__node');
-let activeStep = -1;
-function setStep(i) {
-  if (i === activeStep) return;
-  activeStep = i;
-  steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
-  nodes.forEach((n, k) => n.classList.toggle('is-on', k <= i));
-  cycleNum.textContent = String(i + 1).padStart(2, '0');
+
+function setStage(i) {
+  if (i === activeStage) return;
+  activeStage = i;
+  journey.dataset.stage = String(i);
+  jsteps.forEach((s, k) => s.classList.toggle('is-active', k === i));
+  navLinks.forEach((a, k) => (k === i ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current')));
+  // keep the active label visible in the narrow (scrollable) stage bar
+  const ol = navLinks[i].closest('ol');
+  if (ol.scrollWidth > ol.clientWidth) ol.scrollTo({ left: navLinks[i].offsetLeft - 16, behavior: isReduced() ? 'auto' : 'smooth' });
 }
-function paintCycle() {
-  const ring = $('.cycle__ring').getBoundingClientRect();
-  const vh = window.innerHeight;
-  // ring centre travels from 85% to 30% of the viewport
-  const mid = ring.top + ring.height / 2;
-  const p = isReduced() ? 1 : clamp01((vh * 0.85 - mid) / (vh * 0.55));
-  const loop = Math.min(0.9999, p);
-  ringProgress.style.strokeDashoffset = String(C * (1 - loop));
-  const a = loop * Math.PI * 2 - Math.PI / 2;
-  ringBottle.setAttribute('transform', `translate(${200 + Math.cos(a) * R} ${200 + Math.sin(a) * R}) rotate(${(loop * 360).toFixed(1)})`);
-  setStep(isReduced() ? 0 : Math.min(4, Math.floor(loop * 5)));
+
+function paintRefuse() {
+  if (isStacked()) return refuse.style.removeProperty('--e');
+  const e = smoothstep(range(sectionProgress(refuse), 0.12, 0.8));
+  refuse.style.setProperty('--e', e.toFixed(4));
 }
-if (isReduced()) steps.forEach((s) => s.classList.add('is-active'));
+
+function paintJourney() {
+  document.documentElement.classList.toggle('journey-stacked', isStacked());
+  if (isStacked()) return;
+  const p = sectionProgress(jTrack);
+  const pos = Math.min(STAGES - 0.0001, p * STAGES);
+  const stage = Math.floor(pos);
+  const local = pos - stage;
+  setStage(stage);
+  const fill = stage < 3 ? 0 : stage > 3 ? 1 : smoothstep(clamp01((local - 0.12) / 0.7));
+  journey.style.setProperty('--fill', fill.toFixed(4));
+  bar.style.transform = `scaleX(${(pos / STAGES).toFixed(4)})`;
+}
+
+// stage navigation: scroll to the middle of that stage (desktop) or to its chapter (stacked)
+navLinks.forEach((a) =>
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const i = Number(a.dataset.goto);
+    let target;
+    if (isStacked()) {
+      target = jsteps[i].getBoundingClientRect().top + window.scrollY - 90;
+    } else {
+      const top = jTrack.getBoundingClientRect().top + window.scrollY;
+      target = top + (jTrack.offsetHeight - window.innerHeight) * ((i + 0.5) / STAGES);
+    }
+    if (lenisRef) lenisRef.scrollTo(target, { duration: 1.2 });
+    else window.scrollTo({ top: target, behavior: isReduced() ? 'auto' : 'smooth' });
+  })
+);
+
+// stacked chapters: highlight the stage being read
+const chapterIO = new IntersectionObserver(
+  (entries) => {
+    if (!isStacked()) return;
+    entries.forEach((en) => en.isIntersecting && setStage(Number(en.target.dataset.step)));
+  },
+  { rootMargin: '-40% 0px -45% 0px' }
+);
+jsteps.forEach((s) => chapterIO.observe(s));
+
+// pause the washing effect when the section is off screen
+new IntersectionObserver(([en]) => journey.classList.toggle('is-visible', en.isIntersecting)).observe(journey);
+setStage(0);
+stackedMQ.addEventListener?.('change', () => { activeStage = -1; onScroll(); });
 
 /* ---------------- Scroll loop ---------------- */
 let ticking = false;
@@ -207,7 +250,8 @@ function onScroll() {
   requestAnimationFrame(() => {
     ticking = false;
     paintReveal();
-    paintCycle();
+    paintRefuse();
+    paintJourney();
     paintNavTheme();
     document.body.classList.toggle('in-hero', window.scrollY < hero.offsetHeight * 0.6);
   });
@@ -282,4 +326,4 @@ form.addEventListener('submit', (e) => {
 reduced.addEventListener?.('change', () => location.reload());
 
 /* ---------------- Motion (smooth scroll, reveals, cursor) ---------------- */
-initMotion({ reduced: isReduced(), coarse });
+lenisRef = initMotion({ reduced: isReduced(), coarse }).lenis;

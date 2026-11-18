@@ -93,47 +93,124 @@
         </div>
       </section>
 
-      <!-- 3 · CIRCULAR WATER SYSTEM -->
-      <section class="cycle" id="cycle" data-theme="dark" aria-labelledby="cycle-title" data-cycle data-sheet>
-        <div class="wrap">
-          <div class="cycle__grid">
-            <header class="cycle__head" data-reveal>
-              <p class="eyebrow">Our Cycle</p>
-              <h2 id="cycle-title" class="h2 h2--light" data-split>Reuse. Refill. <span class="accent">Reduce.</span></h2>
-              <p class="lede">We deliver filled glass bottles, collect the empties, and wash, disinfect and refill them at our Dubai Production City facility, so you never have to worry about bottle management.</p>
-            </header>
+      <!-- 3a · REFUSE SINGLE-USE PLASTIC -->
+      <section class="refuse" id="refuse" data-theme="light" data-refuse aria-labelledby="refuse-title">
+        <div class="refuse__sticky">
+          <div class="wrap refuse__grid">
+            <div class="refuse__copy">
+              <p class="eyebrow" data-fade>Returnable glass</p>
+              <h2 id="refuse-title" class="h2 refuse__title" data-split>Refuse single-use <span class="accent">plastic.</span></h2>
+              <p class="refuse__sub" data-fade>Choose a bottle that returns.</p>
+              <p class="lede lede--dark" data-fade>Premium returnable glass water bottles for your hotel, collected, cleaned and refilled.</p>
+              <a class="btn btn--navy" href="#contact" data-enquiry-type="hotel" data-fade>Switch to returnable glass <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+            </div>
+            <div class="refuse__stage">
+              <figure class="refuse__item refuse__item--plastic" data-refuse-plastic>
+                <!-- Temporary outline: replace with a cut-out photo of a crushed single-use PET bottle (see the SVG's comment) -->
+                <img src="/assets/cycle/plastic-bottle.svg" width="300" height="900" alt="A crushed single-use plastic water bottle (illustration)" loading="lazy" />
+                <figcaption>Single-use plastic</figcaption>
+              </figure>
+              <figure class="refuse__item refuse__item--glass" data-refuse-glass>
+                <img src="/assets/cycle/bottle-full-capped.webp" width="360" height="1406" alt="Lavaquell 1000 mL returnable glass bottle" loading="lazy" />
+                <figcaption>Returnable glass</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="cycle__ring" aria-hidden="true">
-              <svg viewBox="0 0 400 400" class="ring">
-                <defs>
-                  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#8ad0f1" />
-                    <stop offset="1" stop-color="#ffffff" />
-                  </linearGradient>
-                </defs>
-                <circle class="ring__base" cx="200" cy="200" r="160" />
-                <circle class="ring__progress" cx="200" cy="200" r="160" data-ring-progress />
-                <g data-ring-nodes></g>
-                <g class="ring__bottle" data-ring-bottle>
-                  <path d="M-6,-26 h12 v5 h-1 v4 c0,6 8,10 8,18 v24 c0,2 -1,3 -3,3 h-20 c-2,0 -3,-1 -3,-3 v-24 c0,-8 8,-12 8,-18 v-4 h-1 z" />
-                </g>
-              </svg>
-              <div class="cycle__counter"><span data-cycle-num>01</span><small>of 05</small></div>
+      <!-- 3b · THE FIVE-STAGE RETURN CYCLE -->
+      <section class="journey" id="cycle" data-theme="light" data-journey aria-labelledby="cycle-title">
+        <div class="journey__track" data-journey-track>
+        <div class="journey__sticky">
+          <div class="wrap journey__grid">
+            <div class="journey__copy">
+              <p class="eyebrow">Our Cycle</p>
+              <h2 id="cycle-title" class="h2 journey__title" data-split>A bottle worth <span class="accent">keeping.</span></h2>
+
+              <nav class="journey__nav" aria-label="Return cycle stages">
+                <ol>
+                  <li><button type="button" data-goto="0" aria-controls="stage-1" aria-current="step"><span>01</span>Deliver</button></li>
+                  <li><button type="button" data-goto="1" aria-controls="stage-2"><span>02</span>Collect</button></li>
+                  <li><button type="button" data-goto="2" aria-controls="stage-3"><span>03</span>Wash</button></li>
+                  <li><button type="button" data-goto="3" aria-controls="stage-4"><span>04</span>Refill</button></li>
+                  <li><button type="button" data-goto="4" aria-controls="stage-5"><span>05</span>Redeliver</button></li>
+                </ol>
+                <span class="journey__bar" aria-hidden="true"><i data-journey-bar></i></span>
+              </nav>
+
+              <div class="journey__steps">
+                <article class="jstep is-active" id="stage-1" data-step="0">
+                  <figure class="jstep__art jstep__art--deliver" aria-hidden="true">
+                    <img class="art-crate" src="/assets/cycle/crate.svg" alt="" loading="lazy" />
+                    <img class="art-bottle" src="/assets/cycle/bottle-full-capped-sm.webp" alt="" loading="lazy" />
+                  </figure>
+                  <p class="jstep__n">01 / 05</p>
+                  <h3>Deliver</h3>
+                  <p>Filled glass bottles arrive at your hotel.</p>
+                </article>
+                <article class="jstep" id="stage-2" data-step="1">
+                  <figure class="jstep__art jstep__art--collect" aria-hidden="true">
+                    <img class="art-bottle" src="/assets/cycle/bottle-empty-capped-sm.webp" alt="" loading="lazy" />
+                    <img class="art-crate" src="/assets/cycle/crate.svg" alt="" loading="lazy" />
+                  </figure>
+                  <p class="jstep__n">02 / 05</p>
+                  <h3>Collect</h3>
+                  <p>Empty bottles are collected for return.</p>
+                </article>
+                <article class="jstep" id="stage-3" data-step="2">
+                  <figure class="jstep__art jstep__art--wash" aria-hidden="true">
+                    <span class="fx-wash"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <img class="art-bottle" src="/assets/cycle/bottle-empty-open-sm.webp" alt="" loading="lazy" />
+                  </figure>
+                  <p class="jstep__n">03 / 05</p>
+                  <h3>Wash &amp; disinfect</h3>
+                  <p>Returned bottles are washed and disinfected before refilling.</p>
+                </article>
+                <article class="jstep" id="stage-4" data-step="3">
+                  <figure class="jstep__art jstep__art--refill" aria-hidden="true">
+                    <img class="art-bottle" src="/assets/cycle/bottle-full-open-sm.webp" alt="" loading="lazy" />
+                  </figure>
+                  <p class="jstep__n">04 / 05</p>
+                  <h3>Refill</h3>
+                  <p>Clean bottles are refilled and prepared for delivery.</p>
+                </article>
+                <article class="jstep" id="stage-5" data-step="4">
+                  <figure class="jstep__art jstep__art--redeliver" aria-hidden="true">
+                    <img class="art-tray" src="/assets/cycle/tray.svg" alt="" loading="lazy" />
+                    <img class="art-bottle" src="/assets/cycle/bottle-full-capped-sm.webp" alt="" loading="lazy" />
+                  </figure>
+                  <p class="jstep__n">05 / 05</p>
+                  <h3>Redeliver</h3>
+                  <p>Filled bottles return to your hotel, ready for your guests.</p>
+                  <a class="btn btn--navy btn--sm" href="#contact" data-enquiry-type="hotel">Switch to returnable glass</a>
+                </article>
+              </div>
             </div>
 
-            <ol class="cycle__steps" data-cycle-steps>
-              <li class="is-active"><span class="n">01</span><div><h3>Full Bottle Delivery</h3><p>Fresh, premium water delivered to your doorstep.</p></div></li>
-              <li><span class="n">02</span><div><h3>Empty Collection</h3><p>We collect your empties on your next delivery.</p></div></li>
-              <li><span class="n">03</span><div><h3>Washing &amp; Disinfection</h3><p>Washed and disinfected to strict hygiene standards.</p></div></li>
-              <li><span class="n">04</span><div><h3>Water Refilling</h3><p>Safe, purified, and mineralised drinking water, freshly refilled.</p></div></li>
-              <li><span class="n">05</span><div><h3>Redelivery</h3><p>Redelivered back to you.</p></div></li>
-            </ol>
+            <!-- desktop: one shared bottle whose state and surroundings change -->
+            <div class="journey__stage" aria-hidden="true">
+              <img class="js-tray" src="/assets/cycle/tray.svg" alt="" loading="lazy" />
+              <div class="js-bottle">
+                <img class="jb jb--full-capped" src="/assets/cycle/bottle-full-capped.webp" alt="" loading="lazy" />
+                <img class="jb jb--empty-capped" src="/assets/cycle/bottle-empty-capped.webp" alt="" loading="lazy" />
+                <img class="jb jb--empty-open" src="/assets/cycle/bottle-empty-open.webp" alt="" loading="lazy" />
+                <img class="jb jb--full-open" src="/assets/cycle/bottle-full-open.webp" alt="" loading="lazy" />
+                <span class="fx-stream"></span>
+                <span class="fx-sheen"></span>
+              </div>
+              <span class="fx-wash fx-wash--big"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              <img class="js-crate" src="/assets/cycle/crate.svg" alt="" loading="lazy" />
+            </div>
           </div>
+        </div>
 
+        </div>
+        <div class="wrap">
           <ul class="benefits" aria-label="Why returnable glass">
-            <li data-reveal><h3>Zero chemical leaching</h3><p>Glass is 100% inert: no BPA or microplastics in your water.</p></li>
-            <li data-reveal><h3>Returnable &amp; reusable</h3><p>Every glass bottle replaces hundreds of single-use plastics.</p></li>
-            <li data-reveal><h3>Premium guest experience</h3><p>Guests notice, and remember, the difference glass makes.</p></li>
+            <li data-fade><h3>Zero chemical leaching</h3><p>Glass is 100% inert: no BPA or microplastics in your water.</p></li>
+            <li data-fade><h3>Returnable &amp; reusable</h3><p>Every glass bottle replaces hundreds of single-use plastics.</p></li>
+            <li data-fade><h3>Premium guest experience</h3><p>Guests notice, and remember, the difference glass makes.</p></li>
           </ul>
         </div>
       </section>

@@ -35,6 +35,12 @@ The same Blender scene can also render a photoreal frame sequence (`--mode anim`
 ## Hero image caveat
 The hero image is the composition reference you supplied. Its packaging (mountain-style logo marks, wave graphics on the cans and bottle, ribbed glass) is generated artwork, not Lavaquell's actual packaging as shown on airowaterglobal.com. Its resolution (937 × 862 after cropping) is also below what a large retina display needs. Replace it with a real product render or photograph at about 2× display size before launch.
 
+## Plastic refusal and the five-stage cycle
+- **Bottle images:** `public/assets/cycle/bottle-*.webp` are transparent renders of the real-shape Blender model (filled or empty, capped or open), all with the same lighting and scale. Regenerate them with `blender -b -P render/lavaquell_scene.py -- --mode cutouts`.
+- **Illustrations:** the crate, the tray, the washing droplets and sheen, and the refill stream are illustrative. They are not photographs of the bottling facility.
+- **Asset still needed:** `public/assets/cycle/plastic-bottle.svg` is a temporary outline. Replace it with a transparent PNG or WebP photo (about 1200 px tall, portrait) of an unbranded, crushed, clear single-use PET water bottle, framed like the glass bottle renders.
+- **Layouts:** on desktop, both sections pin a sticky scene. On mobile, narrow screens and with reduced motion, they become stacked chapters with no pinning.
+
 ## Conflicts and gaps found on the source site
 - **Partner names:** the homepage strip lists Shangri-La, Fairmont, The Oberoi, Raffles, InterContinental, Grosvenor House, Aman, Hilton, Hyatt, Marriott, Four Seasons and Rotana. The *partners.png* logo collage shows a different set (DMCC, Taj, Accor, Ennismore, Swissôtel, Ramada, Danat, Bahi and others). Aman, Hilton, Hyatt, Four Seasons and Rotana appear only in the text strip. The page uses the text strip; the brand should confirm the list.
 - **Sparkling print colour:** the Sparkling glass bottle and can are printed in **green**, not blue. The hero's Sparkling bottle and can keep this green.
